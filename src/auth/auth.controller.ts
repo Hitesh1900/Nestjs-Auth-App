@@ -1,9 +1,9 @@
 import { Controller, Post, Body, UseGuards, Req, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { GoogleAuthGuard } from '../auth/guards/google-auth.guard';
-import { TwitterAuthGuard } from '../auth/guards/twitter-auth.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { GoogleAuthGuard } from './guards/google-auth.guard';
+import { TwitterAuthGuard } from './guards/twitter-auth.guard';
 
 @Controller('auth')
 export class AuthController {
