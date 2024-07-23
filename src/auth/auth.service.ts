@@ -6,9 +6,6 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  register(username: string, password: string) {
-      throw new Error('Method not implemented.');
-  }
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
@@ -30,6 +27,14 @@ export class AuthService {
     };
   }
 
+  async register(username: string, password: string): Promise<User> {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User();
+    newUser.username = username;
+    newUser.password = hashedPassword;
+    return this.userService.create(newUser);
+  }
+  
   async validateOAuthLogin(thirdPartyId: string, provider: string): Promise<User> {
     let user: User;
     switch (provider) {
