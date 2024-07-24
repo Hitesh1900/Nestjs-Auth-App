@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use(urlencoded({ extended: true }));
   app.use(
     session({
-      secret: 'abcdefghijklmnopqrstuvwxyz', 
+      secret: '123', 
       resave: false,
       saveUninitialized: false,
       cookie: { secure: false },

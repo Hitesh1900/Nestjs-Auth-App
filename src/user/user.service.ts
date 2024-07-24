@@ -5,6 +5,9 @@ import { User } from './user.entity';
 
 @Injectable()
 export class UserService {
+  findById(id: number) {
+      throw new Error('Method not implemented.');
+  }
   findOneByTwitterId(thirdPartyId: string): User | PromiseLike<User> {
     throw new Error('Method not implemented.');
   }
