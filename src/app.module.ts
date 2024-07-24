@@ -23,10 +23,11 @@ import { UserModule } from './user/user.module';
       entities: [User],
       synchronize: true,
     }),
-    MulterModule.register(multerOptions),
+    
     UserModule,
     AuthModule,
     TwitterModule,
+    MulterModule.register(multerOptions),
   ],
 })
 export class AppModule {}
