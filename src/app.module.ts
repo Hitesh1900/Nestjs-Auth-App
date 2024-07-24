@@ -1,28 +1,32 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MulterModule } from '@nestjs/platform-express';
 import { AuthModule } from './auth/auth.module';
+import { TwitterModule } from './twitter/twitter.module';
 import { User } from './user/user.entity';
-import { TwitterService } from './twitter/twitter.service';
-import { TwitterController } from './twitter/twitter.controller';
+import { multerOptions } from './middleware/upload.middleware';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
-      port: +process.env.DB_PORT,
+      port: parseInt(process.env.DB_PORT, 10),
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       entities: [User],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([User]),
+    MulterModule.register(multerOptions),
+    UserModule,
     AuthModule,
+    TwitterModule,
   ],
-  controllers: [TwitterController],
-  providers: [TwitterService],
 })
 export class AppModule {}
